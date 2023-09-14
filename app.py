@@ -79,12 +79,12 @@ def webhook():
 
         if re.search('network-help', info['text'], re.IGNORECASE):
             # Network-help command, display test card for user to launch ThousandEyes test
-            api.messages.create(toPersonId=payload['data']['personId'],
+            api.messages.create(roomId=info['roomId'],
                                 text='Let me help!',
                                 attachments=[json.loads(config.CARD_PAYLOAD)])  # where to load the card
         else:
             # All other input, redirect user to network-help command
-            api.messages.create(toPersonId=payload['data']['personId'], text='Hello! Please enter the "network-help" '
+            api.messages.create(roomId=info['roomId'], text='Hello! Please enter the "network-help" '
                                                                              'command to begin the troubleshooting '
                                                                              'workflow.')
 
@@ -109,14 +109,14 @@ def card_webhook():
         if info['IssueSelectVal'] != '' or info['CustomURLVal'] != '':
             # Sanity check at least one value provided
             if info['hostnameVal'] == '' and info['sitenameVal'] == '':
-                api.messages.create(toPersonId=payload['data']['personId'],
+                api.messages.create(roomId=payload['data']['roomId'],
                                     text='Please enter at least one of the following: Enterprise Agent Name, Endpoint '
                                          'Agent Hostname')
                 return jsonify({'info': 'Not quite... try another request!'})
 
             # Delete card, user feedback of test received
             api.messages.delete(messageId=payload['data']['messageId'])
-            api.messages.create(toPersonId=payload['data']['personId'],
+            api.messages.create(roomId=payload['data']['roomId'],
                                 text='Your test request has been received. Test results will be '
                                      'returned in ~5 minutes')
 
@@ -141,13 +141,13 @@ def card_webhook():
                     # to return (critical) and supports parallel processing
                     for result in test_result:
                         try:
-                            generate_result.schedule_result(json.loads(result), payload['data']['personId'],
+                            generate_result.schedule_result(json.loads(result), payload['data']['roomId'],
                                                             sender_store,
                                                             api, cardinfo['hostnameVal'])
                         except Exception as e:
                             print(f'There was an exception: {str(e)}')
                 else:
-                    api.messages.create(toPersonId=payload['data']['personId'],
+                    api.messages.create(roomId=payload['data']['roomId'],
                                         text='Endpoint Agent Name not found, please double check the provided name.')
 
             # Enterprise Agent Case
@@ -170,17 +170,17 @@ def card_webhook():
                     # to return (critical) and supports parallel processing
                     for result in test_result:
                         try:
-                            generate_result.schedule_result(json.loads(result), payload['data']['personId'],
+                            generate_result.schedule_result(json.loads(result), payload['data']['roomId'],
                                                             sender_store,
                                                             api, cardinfo['sitenameVal'])
                         except Exception as e:
                             print(f'There was an exception: {str(e)}')
                 else:
-                    api.messages.create(toPersonId=payload['data']['personId'],
+                    api.messages.create(roomId=payload['data']['roomId'],
                                         text='Enterprise Agent Name not found, please double check the provided name.')
 
         else:
-            api.messages.create(toPersonId=payload['data']['personId'],
+            api.messages.create(roomId=payload['data']['roomId'],
                                 text='Please select an application to test (or provide your own URL)')
 
     return jsonify({'info': 'Hello from the ThousandEyes Chatbot!'})

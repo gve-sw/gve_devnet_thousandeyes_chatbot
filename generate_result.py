@@ -188,7 +188,7 @@ def send_result(result, sender, api_object, test_target):
     Callable method for scheduler, create and send webex card with ThousandEyes test results
     :param test_target: Target of Test (Endpoint Hostname, Enterprise Agent Name)
     :param result - ThousandEyes response from creating tests
-    :param sender - personId to send card to in Webex
+    :param sender - roomId to send card to in Webex
     :param api_object - webexteamssdk api instance
     """
     # Generate Card Data (ThousandEyes Test Results)
@@ -200,14 +200,14 @@ def send_result(result, sender, api_object, test_target):
         card_base['content'] = card
 
         # Send Card to Webex
-        api_object.messages.create(toPersonId=sender,
+        api_object.messages.create(roomId=sender,
                                    text='ThousandEyes Webex Card Results',
                                    attachments=[card_base])
         console.print(f'[green]Webex result delivered![/]')
     else:
         # Send Error Message
         error_message = f"**Error:**  \nUnable to parse test results from ThousandEyes API for target: '{test_target}'\n\n**Results:**  \n```{result}```"
-        api_object.messages.create(toPersonId=sender,
+        api_object.messages.create(roomId=sender,
                                    markdown=error_message)
 
 
@@ -216,7 +216,7 @@ def schedule_result(result, sender, job_store, api_object, test_target):
     Scheduled job to send result cards at a specific time
     :param test_target: Target of Test (Endpoint Hostname, Enterprise Agent Name)
     :param result - ThousandEyes response for creating tests
-    :param sender - personId from Webex
+    :param sender - roomId from Webex
     :param job_store - apscheduler scheduler instance
     :param api_object - webexteamssdk api instance
     """
