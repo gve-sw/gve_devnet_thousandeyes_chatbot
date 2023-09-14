@@ -15,6 +15,8 @@ The bot has the following **options** (and their **tests**) pre-encoded:
 ## Contacts
 * Trevor Maco
 * Josh Ingeniero
+* Hemang Shah
+* Yi Ren
 
 ## Solution Components
 * ThousandEyes
