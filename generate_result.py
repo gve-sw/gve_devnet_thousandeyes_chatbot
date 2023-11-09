@@ -19,11 +19,17 @@ __license__ = "Cisco Sample Code License, Version 1.1"
 
 import datetime
 import json
+import os
 
 import requests
 from rich.console import Console
+from dotenv import load_dotenv
 
 import config
+
+# Load env variables
+load_dotenv()
+THOUSAND_EYES_TOKEN = os.getenv("THOUSAND_EYES_TOKEN")
 
 # Rich Console Instance
 console = Console()
@@ -38,7 +44,7 @@ def call_url(url):
     payload = {}
     headers = {
         'Accept': 'application/json',
-        'Authorization': f"Bearer {config.THOUSAND_EYES_TOKEN}"
+        'Authorization': f"Bearer {THOUSAND_EYES_TOKEN}"
     }
 
     response = requests.get(url, headers=headers, data=payload)

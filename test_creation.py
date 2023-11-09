@@ -19,10 +19,15 @@ __license__ = "Cisco Sample Code License, Version 1.1"
 
 import concurrent.futures
 import json
+import os
 
 import requests
+from dotenv import load_dotenv
 
-import config
+# Load env variables
+load_dotenv()
+THOUSAND_EYES_TOKEN = os.getenv("THOUSAND_EYES_TOKEN")
+
 
 """"     Test URLs       """
 
@@ -39,7 +44,7 @@ O365URL = "https://login.microsoftonline.com"
 headers = {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
-    'Authorization': f"Bearer {config.THOUSAND_EYES_TOKEN}"
+    'Authorization': f"Bearer {THOUSAND_EYES_TOKEN}"
 }
 
 # Define Global ThousandEyes Instant Test Endpoints

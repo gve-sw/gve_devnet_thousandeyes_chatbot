@@ -19,6 +19,7 @@ __license__ = "Cisco Sample Code License, Version 1.1"
 
 import json
 import logging
+import os
 import re
 
 import urllib3
@@ -27,10 +28,15 @@ from flask import Flask, jsonify, request
 from rich.console import Console
 from rich.panel import Panel
 from webexteamssdk import WebexTeamsAPI
+from dotenv import load_dotenv
 
 import config
 import generate_result
 import test_creation
+
+# Load env variables
+load_dotenv()
+BOT_TOKEN = os.getenv("BOT_TOKEN")
 
 # Global Variables
 app = Flask(__name__)
@@ -41,7 +47,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 logging.basicConfig(filename='app.log', filemode='a', format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 # Webex API
-api = WebexTeamsAPI(access_token=config.BOT_TOKEN)
+api = WebexTeamsAPI(access_token=BOT_TOKEN)
 
 # Background scheduler (for running ThousandEyes tests as background processes)
 sender_store = BackgroundScheduler()

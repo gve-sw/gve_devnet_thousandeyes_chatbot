@@ -70,23 +70,24 @@ ngrok http 4000
 
 ## Installation/Configuration
 1. Clone this repository with `git clone [repository name]`
-2. Add the Webex Bot Token and Webex Bot Email to `config.py`:
+2. Rename the `.env_sample` file to `.env`. Rename `config_sample.py` to `config.py`.
+3. Add the Webex Bot Token to `.env` and Webex Bot Email to `config.py`:
+```dotenv
+BOT_TOKEN=''
+```
 ```python
-# Webex Bot
-BOT_TOKEN = ""
 BOT_EMAIL = ""
 ```
-3. Add the publicly facing app url to `config.py` (ex: Ngrok forwarding address)
+4. Add the public facing app url to `config.py` (ex: Ngrok forwarding address)
 ```python
 WEBHOOK_BASE_URL = ""
 ```
-4. Add the ThousandEyes bearer token to `config.py`
-```python
-# ThousandEyes
-THOUSAND_EYES_TOKEN = ""
+5. Add the ThousandEyes bearer token to `.env`
+```dotenv
+THOUSAND_EYES_TOKEN=''
 ```
-5. Set up a Python virtual environment. Make sure Python 3 is installed in your environment, and if not, you may download Python [here](https://www.python.org/downloads/). Once Python 3 is installed in your environment, you can activate the virtual environment with the instructions found [here](https://docs.python.org/3/tutorial/venv.html).
-6. Install the requirements with `pip3 install -r requirements.txt`
+6. Set up a Python virtual environment. Make sure Python 3 is installed in your environment, and if not, you may download Python [here](https://www.python.org/downloads/). Once Python 3 is installed in your environment, you can activate the virtual environment with the instructions found [here](https://docs.python.org/3/tutorial/venv.html).
+7. Install the requirements with `pip3 install -r requirements.txt`
 
 
 ## Usage

@@ -1,12 +1,8 @@
 # Webex Bot
-BOT_TOKEN = ''
-BOT_EMAIL = ''
+BOT_EMAIL = ""
 WEBHOOK_BASE_URL = ""
 
-# ThousandEyes
-THOUSAND_EYES_TOKEN = ''
-
-# Card Payload to launch tests
+# Card payload for launching tests
 CARD_PAYLOAD = """{
       "contentType": "application/vnd.microsoft.card.adaptive",
       "content": {
